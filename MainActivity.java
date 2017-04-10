@@ -6,6 +6,8 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +17,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+import com.kjdy.mobiledevfinalproject.drawing.SimpleDrawingView;
+import com.kjdy.mobiledevfinalproject.fragments.CircleFragment;
+import com.kjdy.mobiledevfinalproject.fragments.LineFragment;
+import com.kjdy.mobiledevfinalproject.fragments.NoShapeFragment;
+import com.kjdy.mobiledevfinalproject.fragments.OvalFragment;
+import com.kjdy.mobiledevfinalproject.fragments.RectangleFragment;
 import com.kjdy.mobiledevfinalproject.util.UtilTheme;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity {
 
 //    @BindView(R.id.pb_play_loading) ProgressBar progressTheme;
     final int DEFAULT_THEME = 0;
@@ -32,6 +40,8 @@ public class MainActivity extends BaseActivity
     public static int toolbarOption;
     public static FloatingActionButton fab;
     public static SimpleDrawingView sView;
+    private DrawerLayout mDrawer;
+
     //changing toolbar color after theme option is selected
     public void changeToolBarColor(int theme){
         switch(theme){
@@ -68,27 +78,28 @@ public class MainActivity extends BaseActivity
 
 
 
-        //floacting actionbar
+        //floating action bar onClickListener
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//                startActivity(intent);
+
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(navigationItemSelectedListener);
 
-//        if(savedInstanceState == null){
-//            getSupportFragmentManager().beginTransaction().add(R.id.fragment, new HomeFragment()).commit();
-//        }
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment, new NoShapeFragment()).commit();
+
+        }
 
     }
 
@@ -216,39 +227,34 @@ public class MainActivity extends BaseActivity
     }
 
 
+    NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(MenuItem item) {
+            mDrawer.closeDrawer(GravityCompat.START);
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+            Fragment fragment = null;
+            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            switch (item.getItemId()) {
+                case R.id.nav_noshape:
+                    fragment = new NoShapeFragment();
+                    break;
+                case R.id.nav_rectangle:
+                    fragment = new RectangleFragment();
+                    break;
+                case R.id.nav_circle:
+                    fragment = new CircleFragment();
+                    break;
+                case R.id.nav_oval:
+                    fragment = new OvalFragment();
+                    break;
+                case R.id.nav_line:
+                    fragment = new LineFragment();
+                    break;
 
-        if (id == R.id.nav_noshape) {
-        } else if (id == R.id.nav_rectangle) {
-            //sView = (RectangleDrawingView) findViewById(R.id.drawView);
-        } else if (id == R.id.nav_circle) {
+            }
 
-        } else if (id == R.id.nav_line) {
-
+            ft.replace(R.id.fragment, fragment).commit();
+            return true;
         }
-//        else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    //    private void prepareStatus() throws InterruptedException {
-//        progressTheme.setVisibility(View.VISIBLE);
-//
-//        finishStatus();
-//    }
-//
-//    private void finishStatus(){
-//        progressTheme.setVisibility(View.INVISIBLE);
-//    }
+    };
 }

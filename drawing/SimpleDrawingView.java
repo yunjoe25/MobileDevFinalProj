@@ -1,4 +1,4 @@
-package com.kjdy.mobiledevfinalproject;
+package com.kjdy.mobiledevfinalproject.drawing;
 
 import android.content.Context;
 import android.graphics.Canvas;
