@@ -21,8 +21,8 @@ public class RectangleDrawingView extends View{
 
         float pointX;
         float pointY;
-    float startX;
-    float startY;
+        float startX;
+        float startY;
 
         public RectangleDrawingView(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -65,7 +65,6 @@ public class RectangleDrawingView extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawRect(startX, startY, pointX, pointY, drawPaint);
-//        canvas.drawColor(Color.GREEN);
     }
 
     public float getRectangleX(){
