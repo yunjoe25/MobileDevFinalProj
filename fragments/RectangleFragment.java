@@ -6,8 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kjdy.mobiledevfinalproject.R;
+import com.kjdy.mobiledevfinalproject.drawing.RectangleDrawingView;
+
+import org.w3c.dom.Text;
 
 
 /**
@@ -16,6 +20,7 @@ import com.kjdy.mobiledevfinalproject.R;
 
 public class RectangleFragment extends Fragment {
 
+    TextView text;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class RectangleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
 
     }
 }

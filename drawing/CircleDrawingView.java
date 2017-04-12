@@ -24,11 +24,11 @@ public class CircleDrawingView extends View {
     private Paint drawPaint;
     private Path path = new Path();
 
-    float pointX;
-    float pointY;
-    float startX;
-    float startY;
-    float radius = 500;
+    static float pointX;
+    static float pointY;
+    static float startX;
+    static float startY;
+    static float radius = 500;
 
     public CircleDrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,6 +36,9 @@ public class CircleDrawingView extends View {
         setFocusableInTouchMode(true);
         setupPaint();
     }
+
+
+
 
     private void setupPaint() {
 // Setup paint with color and stroke styles
@@ -73,4 +76,25 @@ public class CircleDrawingView extends View {
         canvas.drawCircle(pointX, pointY, (Math.abs(startX - pointX)+ Math.abs(startY - pointY)/1.5f), drawPaint);
     }
 //    (Math.abs(firstX-x) + Math.abs(firstY-y))/1.5f
+
+
+
+    public static String getCircleX() {
+        return (Math.abs(pointX-startX))+"";
+    }
+    public static String getCircleY() {
+        return (Math.abs(pointX-startX))+"";
+    }
+    public static String getCircleArea() {
+        return ( Math.PI* ( (pointX-startX)*(pointX-startX) ) )+"";
+    }
+    public static String getCircleCircum() {
+        return ((Math.PI* (Math.abs(pointX-startX) ) )*2)+"";
+    }
+
+
+    public static String getCircleDiameter() {
+        return (Math.abs(pointX-startX)*2)+"";
+    }
+
 }
