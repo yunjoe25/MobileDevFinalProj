@@ -28,7 +28,7 @@ public class CircleDrawingView extends View {
     static float pointY;
     static float startX;
     static float startY;
-    static float radius = 500;
+    static float radius;
 
     public CircleDrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,26 +73,33 @@ public class CircleDrawingView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawCircle(pointX, pointY, (Math.abs(startX - pointX)+ Math.abs(startY - pointY)/1.5f), drawPaint);
+        //canvas.drawCircle(pointX, pointY, (Math.abs(startX - pointX)+ Math.abs(startY - pointY)/1.5f), drawPaint);
+        canvas.drawCircle(pointX, pointY, (float) Math.sqrt((Math.pow((pointX - startX), 2.0))+( Math.pow( (pointY - startY), 2.0) ) ), drawPaint);
+        radius = (float) Math.sqrt((Math.pow((pointX - startX), 2.0f))+( Math.pow( (pointY - startY), 2.0f) ) );
+
     }
 //    (Math.abs(firstX-x) + Math.abs(firstY-y))/1.5f
 
 
 
     public static String getCircleX() {
-        return (Math.abs(pointX-startX))+"";
+        return (pointX - startX)+"";
     }
     public static String getCircleY() {
-        return (Math.abs(pointX-startX))+"";
+        return (pointY - startY)+"";
+    }
+    public static String getRadius(){
+        return (radius)+"";
+    }
+    public static String getCircleMidPoint() {
+        return (((pointX - startX)/2)+" , "+((pointY - startY)/2))+"";
     }
     public static String getCircleArea() {
-        return ( Math.PI* ( (pointX-startX)*(pointX-startX) ) )+"";
+        return ( Math.PI* Math.pow(radius, 2) )+"";
     }
     public static String getCircleCircum() {
-        return ((Math.PI* (Math.abs(pointX-startX) ) )*2)+"";
+        return ((Math.PI* radius) *2)+"";
     }
-
-
     public static String getCircleDiameter() {
         return (Math.abs(pointX-startX)*2)+"";
     }

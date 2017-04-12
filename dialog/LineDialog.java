@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import com.kjdy.mobiledevfinalproject.R;
+import com.kjdy.mobiledevfinalproject.drawing.LineDrawingView;
 import com.kjdy.mobiledevfinalproject.drawing.RectangleDrawingView;
 
 import butterknife.ButterKnife;
@@ -20,7 +21,7 @@ public class LineDialog extends Dialog {
 
 
 
-    String src_valueX, src_valueY, src_valueArea;
+    String src_valueX, src_valueY, src_valueLen, src_valueMidPoint;
 
     @OnClick(R.id.custom_dialog_ok)
     public void okClick(){
@@ -39,21 +40,24 @@ public class LineDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_custom_rectangle);
+        setContentView(R.layout.dialog_custom_line);
         ButterKnife.bind(this);
 
         //RectangleDrawingView rd = new RectangleDrawingView(this, );
-        TextView valueX = (TextView) findViewById(R.id.rectangle_value_x);
-        TextView valueY = (TextView) findViewById(R.id.rectangle_value_y);
-        TextView valueArea = (TextView) findViewById(R.id.rectangle_value_area);
+        TextView valueX = (TextView) findViewById(R.id.line_value_x);
+        TextView valueY = (TextView) findViewById(R.id.line_value_y);
+        TextView valueMindPoint = (TextView) findViewById(R.id.line_value_midPoint);
+        TextView valueLen = (TextView) findViewById(R.id.line_value_len);
 
-        src_valueX = RectangleDrawingView.getRectangleX();
-        src_valueY = RectangleDrawingView.getRectangleY();
-        src_valueArea = RectangleDrawingView.getRectangleArea();
+        src_valueX = LineDrawingView.getLineX();
+        src_valueY = LineDrawingView.getLineY();
+        src_valueMidPoint = LineDrawingView.getLineMidPoint();
+        src_valueLen = LineDrawingView.getLineLen();
 
         valueX.setText(src_valueX+" px(s)");
         valueY.setText(src_valueY+" px(s)");
-        valueArea.setText(src_valueArea+" px * px");
+        valueMindPoint.setText("( "+src_valueMidPoint+" ) px(s)");
+        valueLen.setText(src_valueLen+" px(s)");
 
     }
 

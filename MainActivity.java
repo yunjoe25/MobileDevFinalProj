@@ -1,16 +1,13 @@
 package com.kjdy.mobiledevfinalproject;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,13 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 
 import com.kjdy.mobiledevfinalproject.dialog.CircleDialog;
+import com.kjdy.mobiledevfinalproject.dialog.LineDialog;
+import com.kjdy.mobiledevfinalproject.dialog.OvalDialog;
 import com.kjdy.mobiledevfinalproject.dialog.RectangleDialog;
-import com.kjdy.mobiledevfinalproject.drawing.RectangleDrawingView;
-import com.kjdy.mobiledevfinalproject.drawing.SimpleDrawingView;
+import com.kjdy.mobiledevfinalproject.dialog.EditDialogTemp;
 import com.kjdy.mobiledevfinalproject.fragments.CircleFragment;
 import com.kjdy.mobiledevfinalproject.fragments.LineFragment;
 import com.kjdy.mobiledevfinalproject.fragments.NoShapeFragment;
@@ -36,8 +33,6 @@ import com.kjdy.mobiledevfinalproject.fragments.RectangleFragment;
 import com.kjdy.mobiledevfinalproject.util.UtilTheme;
 
 import butterknife.ButterKnife;
-
-import static android.view.View.VISIBLE;
 
 public class MainActivity extends BaseActivity {
 
@@ -121,7 +116,7 @@ public class MainActivity extends BaseActivity {
         changeToolBarColor(toolbarOption);
         ButterKnife.bind(this);
 
-        //floating action bar onClickListener
+        //Main floating action bar onClickListener
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,11 +138,12 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        //floating action bar stat onClickListener
+        //Stat floating action bar onClickListener
         fabStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                switch(menuOptionSet){
+                   //Rectangle
                    case MENU_SELECT_ONE:
                        closeFab();
                        final RectangleDialog rectDialog = new RectangleDialog(view.getContext(), new RectangleDialog.ICustomDialogEventListener() {
@@ -157,6 +153,7 @@ public class MainActivity extends BaseActivity {
                        });
                        rectDialog.show();
                        break;
+                   //Circle
                    case MENU_SELECT_TWO:
                        closeFab();
                        final CircleDialog circleDialog = new CircleDialog(view.getContext(), new CircleDialog.ICustomDialogEventListener() {
@@ -166,10 +163,25 @@ public class MainActivity extends BaseActivity {
                        });
                        circleDialog.show();
                        break;
+                   //Oval | Ellipse
                    case MENU_SELECT_THREE:
+                       closeFab();
+                       final OvalDialog ovalDialog = new OvalDialog(view.getContext(), new OvalDialog.ICustomDialogEventListener() {
+                           @Override
+                           public void onClickListener() {
+                           }
+                       });
+                       ovalDialog.show();
                        break;
-
+                   //Line
                    case MENU_SELECT_FOUR:
+                       closeFab();
+                       final LineDialog lineDialog = new LineDialog(view.getContext(), new LineDialog.ICustomDialogEventListener() {
+                           @Override
+                           public void onClickListener() {
+                           }
+                       });
+                       lineDialog.show();
                        break;
                    //default:   No-Shape
                    default:
@@ -178,21 +190,47 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        //floating action bar edit onClickListener
+        //Edit floating action bar onClickListener
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch(menuOptionSet){
                     case MENU_SELECT_ONE:
-//                        RectangleDrawingView.setRectangleX(100,100);
+                        closeFab();
+                        final EditDialogTemp editDialog1 = new EditDialogTemp(view.getContext(), new EditDialogTemp.ICustomDialogEventListener() {
+                            @Override
+                            public void onClickListener() {
+                            }
+                        });
+                        editDialog1.show();
                         break;
                     case MENU_SELECT_TWO:
+                        closeFab();
+                        final EditDialogTemp editDialog2 = new EditDialogTemp(view.getContext(), new EditDialogTemp.ICustomDialogEventListener() {
+                            @Override
+                            public void onClickListener() {
+                            }
+                        });
+                        editDialog2.show();
                         break;
                     case MENU_SELECT_THREE:
+                        closeFab();
+                        final EditDialogTemp editDialog3 = new EditDialogTemp(view.getContext(), new EditDialogTemp.ICustomDialogEventListener() {
+                            @Override
+                            public void onClickListener() {
+                            }
+                        });
+                        editDialog3.show();
                         break;
                     case MENU_SELECT_FOUR:
+                        closeFab();
+                        final EditDialogTemp editDialog4 = new EditDialogTemp(view.getContext(), new EditDialogTemp.ICustomDialogEventListener() {
+                            @Override
+                            public void onClickListener() {
+                            }
+                        });
+                        editDialog4.show();
                         break;
-                    //default:  No-Shape
                     default:
                         break;
                 }
@@ -211,11 +249,7 @@ public class MainActivity extends BaseActivity {
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment, new NoShapeFragment()).commit();
-
-
         }
-
-
     }
 
     //closing FAB animations & fabIsOpen = false;
@@ -268,7 +302,7 @@ public class MainActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            showShortToast("\"About\" option has been clicked");
+//            showShortToast("\"About\" option has been clicked");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -291,7 +325,7 @@ public class MainActivity extends BaseActivity {
 
     int choice=0;
     private void singleChoiceDialog() {
-        final String[] items = { "Custom theme 1", "Custom theme 2", "Custom theme 3", "Custom theme 4" };
+        final String[] items = { "Custom Theme 1", "Custom Theme 2", "Custom Theme 3", "Custom Theme 4" };
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.DayNightAlertDialogTheme);
 //        builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle("Theme options");
@@ -304,8 +338,8 @@ public class MainActivity extends BaseActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                showShortToast((choice+1) + "");
-                showShortToast(items[choice]);
+//                showShortToast((choice+1) + "");
+//                showShortToast(items[choice]);
 
                 //changing theme based on singleItemChoice option
                 switch (choice){
@@ -324,7 +358,6 @@ public class MainActivity extends BaseActivity {
                     default:
                         break;
                 }
-
             }
         });
         builder.show();
@@ -335,30 +368,25 @@ public class MainActivity extends BaseActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle("Please Confirm");
-        builder.setMessage("Are you sure you want to change theme? " +
-                "This will remove prior drawn objects.");
+        builder.setMessage("Are you sure you want to change theme? \n\nThis action will remove prior drawn objects in current theme.");
 
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                showShortToast("You clicked Yes");
-
+//                showShortToast("You clicked Yes");
                 //assigning toolbar option
                 toolbarOption = themeOption;
                 UtilTheme.changeToTheme(MainActivity.this,themeOption);
-
                 //changing the theme by relaunching the activity
                 UtilTheme.onActivityCreateSetTheme(MainActivity.this);
-
-
             }
         });
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                showShortToast("You clicked No");
+//                showShortToast("You clicked No");
             }
         });
 
@@ -375,25 +403,31 @@ public class MainActivity extends BaseActivity {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             switch (item.getItemId()) {
                 case R.id.nav_noshape:
+                    //create no-shape fragment
                     fragment = new NoShapeFragment();
                     menuOptionSet = MENU_SELECT_ZERO;
                     break;
+                case R.id.nav_line:
+                    //create line fragment
+                    fragment = new LineFragment();
+                    menuOptionSet = MENU_SELECT_FOUR;
+                    break;
                 case R.id.nav_rectangle:
+                    //create rectangle fragment
                     fragment = new RectangleFragment();
                     menuOptionSet = MENU_SELECT_ONE;
                     break;
                 case R.id.nav_circle:
+                    //create circle fragment
                     fragment = new CircleFragment();
                     menuOptionSet = MENU_SELECT_TWO;
                     break;
-                case R.id.nav_oval:
+                case R.id.nav_ellipse:
+                    //create oval | ellipse fragment
                     fragment = new OvalFragment();
                     menuOptionSet = MENU_SELECT_THREE;
                     break;
-                case R.id.nav_line:
-                    fragment = new LineFragment();
-                    menuOptionSet = MENU_SELECT_FOUR;
-                    break;
+
 
             }
 

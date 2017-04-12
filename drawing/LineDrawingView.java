@@ -24,10 +24,11 @@ public class LineDrawingView extends View {
     private Paint drawPaint;
     private Path path = new Path();
 
-    float pointX;
-    float pointY;
-    float startX;
-    float startY;
+    static float pointX;
+    static float pointY;
+    static float startX;
+    static float startY;
+    private static String lineLen;
 
     public LineDrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,6 +36,8 @@ public class LineDrawingView extends View {
         setFocusableInTouchMode(true);
         setupPaint();
     }
+
+
 
     private void setupPaint() {
 // Setup paint with color and stroke styles
@@ -71,4 +74,19 @@ public class LineDrawingView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawLine(startX, startY, pointX, pointY, drawPaint);
     }
+    public static String getLineX() {
+        return pointX-startX+"";
+    }
+
+    public static String getLineY() {
+        return  pointY-startY+"";
+    }
+    public static String getLineMidPoint() {
+        return  (((pointX-startX )/2)+" , "+((pointY-startY)/2));
+    }
+
+    public static String getLineLen() {
+        return (Math.sqrt((Math.pow((pointX - startX), 2.0))+( Math.pow( (pointY - startY), 2.0) ) ) )+"";
+    }
+
 }

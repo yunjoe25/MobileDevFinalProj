@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.kjdy.mobiledevfinalproject.R;
 import com.kjdy.mobiledevfinalproject.drawing.CircleDrawingView;
+import com.kjdy.mobiledevfinalproject.drawing.OvalDrawingView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,7 +19,7 @@ import butterknife.OnClick;
 
 public class OvalDialog extends Dialog {
 
-    String src_valueX, src_valueY, src_valueArea, src_valueDiameter;
+    String src_valueX, src_valueY, src_valueMidPoint,src_valueRadiusX,src_valueRadiusY,src_valueArea;
 
     @OnClick(R.id.custom_dialog_ok)
     public void okClick(){
@@ -37,26 +38,34 @@ public class OvalDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_custom_circle);
+        setContentView(R.layout.dialog_custom_oval);
         ButterKnife.bind(this);
 
         //RectangleDrawingView rd = new RectangleDrawingView(this, );
-        TextView valueX = (TextView) findViewById(R.id.circle_value_x);
-        TextView valueY = (TextView) findViewById(R.id.circle_value_y);
-        TextView valueArea = (TextView) findViewById(R.id.circle_value_area);
-        TextView valueDiameter = (TextView) findViewById(R.id.circle_value_diameter);
+        TextView valueX = (TextView) findViewById(R.id.oval_value_x);
+        TextView valueY = (TextView) findViewById(R.id.oval_value_y);
+        TextView valueRadiusX = (TextView) findViewById(R.id.oval_value_radiusX);
+        TextView valueRadiusY = (TextView) findViewById(R.id.oval_value_radiusY);
+
+        TextView valueArea = (TextView) findViewById(R.id.oval_value_area);
+        TextView valueMidpoint = (TextView) findViewById(R.id.oval_value_midPoint);
 
 
-        src_valueX = CircleDrawingView.getCircleX();
-        src_valueY = CircleDrawingView.getCircleY();
-        src_valueArea = CircleDrawingView.getCircleArea();
-        src_valueArea = CircleDrawingView.getCircleDiameter();
+        src_valueX = OvalDrawingView.getOvalX();
+        src_valueY = OvalDrawingView.getOvalY();
+        src_valueRadiusX = OvalDrawingView.getOvalRadiusX();
+        src_valueRadiusY = OvalDrawingView.getOvalRadiusY();
+
+        src_valueArea = OvalDrawingView.getOvalArea();
+        src_valueMidPoint = OvalDrawingView.getOvalMidPoint();
 
 
         valueX.setText(src_valueX+" px(s)");
         valueY.setText(src_valueY+" px(s)");
-        valueDiameter.setText(src_valueDiameter+" px(s)");
+        valueRadiusX.setText(src_valueRadiusX+" px(s)");
+        valueRadiusY.setText(src_valueRadiusY+" px(s)");
         valueArea.setText(src_valueArea+" px * px");
+        valueMidpoint.setText("("+src_valueMidPoint+") px(s)");
 
 
     }

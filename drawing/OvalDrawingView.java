@@ -24,11 +24,11 @@ public class OvalDrawingView extends View {
     private Paint drawPaint;
     private Path path = new Path();
 
-    float pointX;
-    float pointY;
-    float startX;
-    float startY;
-    float radius = 500;
+    static float pointX;
+    static float pointY;
+    static float startX;
+    static float startY;
+    //float radius = 500;
 
     public OvalDrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,5 +73,30 @@ public class OvalDrawingView extends View {
         canvas.drawOval(startX ,startY, pointX, pointY,  drawPaint);
 //        canvas.drawArc(startX,startY,pointX,pointY,20,10,true);
     }
+
+
+    public static String getOvalX(){
+        return (pointX - startX +"");
+    }
+    public static String getOvalY(){
+        return (pointY - startY+"");
+    }
+    public static String getOvalRadiusX(){
+        return ((pointX - startX)/2) +"";
+    }
+    public static String getOvalRadiusY(){
+        return ((pointY - startY)/2) +"";
+    }
+
+    public static String getOvalMidPoint(){
+        return((pointX - startX)/2+" , "+(pointY - startY)/2);
+    }
+    public static String getOvalArea(){
+        return ( ((pointX - startX) / 2)*((pointY - startY)/2) * Math.PI)+"";
+    }
+//    public static String getRectangleDiameter() {
+//        return (Math.sqrt((Math.pow((pointX - startX), 2.0))+( Math.pow( (pointY - startY), 2.0) ) ) )+"";
+//    }
+
 //    (Math.abs(firstX-x) + Math.abs(firstY-y))/1.5f
 }

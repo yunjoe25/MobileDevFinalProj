@@ -20,7 +20,7 @@ public class RectangleDialog extends Dialog {
 
 
 
-    String src_valueX, src_valueY, src_valueArea, src_valueDiameter;
+    String src_valueX, src_valueY, src_valueArea, src_valueDiameter, src_valueMidPoint;
 
     @OnClick(R.id.custom_dialog_ok)
     public void okClick(){
@@ -45,17 +45,20 @@ public class RectangleDialog extends Dialog {
         //RectangleDrawingView rd = new RectangleDrawingView(this, );
         TextView valueX = (TextView) findViewById(R.id.rectangle_value_x);
         TextView valueY = (TextView) findViewById(R.id.rectangle_value_y);
+        TextView valueMidPoint = (TextView) findViewById(R.id.rectangle_value_midPoint);
         TextView valueArea = (TextView) findViewById(R.id.rectangle_value_area);
         TextView valueDiameter = (TextView) findViewById(R.id.rectangle_value_diameter);
 
         src_valueX = RectangleDrawingView.getRectangleX();
         src_valueY = RectangleDrawingView.getRectangleY();
+        src_valueMidPoint = RectangleDrawingView.getRectangleMidPoint();
         src_valueArea = RectangleDrawingView.getRectangleArea();
         src_valueDiameter = RectangleDrawingView.getRectangleDiameter();
 
 
         valueX.setText(src_valueX+" px(s)");
         valueY.setText(src_valueY+" px(s)");
+        valueMidPoint.setText("( "+src_valueMidPoint+" ) px(s)");
         valueDiameter.setText(src_valueDiameter+" px(s)");
         valueArea.setText(src_valueArea+" px * px");
 

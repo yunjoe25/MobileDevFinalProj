@@ -86,6 +86,9 @@ public class RectangleDrawingView extends View{
     public static String getRectangleY(){
         return (pointY - startY+"");
     }
+    public static String getRectangleMidPoint(){
+        return((pointX - startX)/2+" , "+(pointY - startY)/2);
+    }
     public static String getRectangleArea(){
         return ( (pointX - startX)*(pointY - startY)+"" );
     }
